@@ -105,13 +105,13 @@ class App extends Component {
                         >
                             <span className="fa fa-plus mr-5"> </span> Create Work
                         </button>
-                        <button
+                        {/* <button
                             type="button"
                             className="btn btn-danger ml-5"
                             onClick={this.onGenerateData}
                         >
                             Genarate Data
-                        </button>
+                        </button> */}
                         {/* sort, search */}
                         <div className="row mt-15">
                             <Control />
