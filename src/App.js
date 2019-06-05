@@ -79,6 +79,31 @@ class App extends Component {
         console.log(tasks);
     }
 
+
+    findIndex = (id) => {
+        var { tasks } = this.state;
+        var result = -1;
+        tasks.forEach((task, index) => {
+            if (task.id === id) {
+                result = index
+            }
+        });
+        return result;
+    }
+
+    onUpdateStatus = (id) => {
+        var { tasks } = this.state;
+        var index = this.findIndex(id);
+        console.log(index);
+        if (index !== -1) {
+            tasks[index].status = !tasks[index].status;
+            this.setState({
+                tasks: tasks
+            });
+            localStorage.setItem('keyTasks', JSON.stringify(tasks));
+        }
+    }
+
     render() {
         var { tasks, isDisplayForm } = this.state; //var tasks = this.state.tasks
         var elemDisplayForm = isDisplayForm ?
@@ -92,7 +117,7 @@ class App extends Component {
         return (
             <div className="container" >
                 <div className="text-center">
-                    <h1>WORK MANAGER</h1>
+                    <h1>TASK MANAGER</h1>
                 </div>
                 <div className="row">
                     {/* form create/edit work */}
@@ -105,20 +130,23 @@ class App extends Component {
                         >
                             <span className="fa fa-plus mr-5"> </span> Create Work
                         </button>
-                        <button
+                        {/* <button
                             type="button"
                             className="btn btn-danger ml-5"
                             onClick={this.onGenerateData}
                         >
                             Genarate Data
-                        </button>
+                        </button> */}
                         {/* sort, search */}
                         <div className="row mt-15">
                             <Control />
                         </div>
                         {/* list */}
                         <div className="row mt-15">
-                            <TaskList tasks={tasks} />
+                            <TaskList
+                                tasks={tasks}
+                                onUpdateStatus={this.onUpdateStatus}
+                            />
                         </div>
                     </div>
                 </div>
