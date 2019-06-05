@@ -79,6 +79,7 @@ class App extends Component {
         console.log(tasks);
     }
 
+
     findIndex = (id) => {
         var { tasks } = this.state;
         var result = -1;
