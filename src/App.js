@@ -4,6 +4,7 @@ import TaskFrom from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
 
+
 class App extends Component {
 
     constructor(props) {
@@ -78,7 +79,6 @@ class App extends Component {
         localStorage.setItem('keyTasks', JSON.stringify(tasks));
         console.log(tasks);
     }
-
 
     findIndex = (id) => {
         var { tasks } = this.state;
