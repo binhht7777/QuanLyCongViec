@@ -5,8 +5,38 @@ class TaskForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             name: '',
             status: false
+        }
+    }
+
+    // chi chay khi load form lan dau tien
+    componentWillMount() {
+        if (this.props.task !== null) {
+            this.setState({
+                id: this.props.task.id,
+                name: this.props.task.name,
+                status: this.props.task.status
+            });
+        }
+    }
+
+    // chay khi truoc do co su kien khac dang thuc hien vi du Create
+    componentWillReceiveProps(nextProps) {
+        if (nextProps !== null && nextProps.task !== null) {
+            this.setState({
+                id: nextProps.task.id,
+                name: nextProps.task.name,
+                status: nextProps.task.status
+            });
+        }
+        else if (nextProps && nextProps.task === null) {
+            this.setState({
+                id: '',
+                name: '',
+                status: false
+            });
         }
     }
 
@@ -42,12 +72,16 @@ class TaskForm extends Component {
         });
     }
 
+
+
     render() {
+        var { id } = this.state;
         return (
             <div>
                 <div className="panel panel-warning">
                     <div className="panel-heading">
-                        <h3 className="panel-title">Create Work
+                        <h3 className="panel-title">
+                            {id !== '' ? "Update Task" : "Create Task"}
                             <span className="fa fa-times-circle text-right"
                                 onClick={this.onCLoseForm3}
                             >
