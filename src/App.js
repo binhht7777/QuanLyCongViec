@@ -255,7 +255,6 @@ class App extends Component {
                         {/* list */}
                         <div className="row mt-15">
                             <TaskList
-
                                 onUpdateStatus={this.onUpdateStatus}
                                 onDelete={this.onDelete}
                                 onUpdate={this.onUpdate}

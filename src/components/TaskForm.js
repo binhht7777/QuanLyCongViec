@@ -62,7 +62,7 @@ class TaskForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         console.log(this.state);
-        this.props.onAddTask(this.state.task);
+        this.props.onAddTask(this.state);
         this.onCLear();
         this.onCLoseForm3();
     }
