@@ -20,7 +20,7 @@ class Sort extends Component {
                >
                   Sort<span className="caret ml-5" />
                </button>
-               <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+               {/* <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                   <li onClick={() => this.onClick('name', 1)}>
                      <a role="button">
                         <span className="fa fa-sort-alpha-down"></span>Name A-Z
@@ -42,7 +42,7 @@ class Sort extends Component {
                         <span>Status is InActive</span>
                      </a>
                   </li>
-               </ul>
+               </ul> */}
             </div>
          </div>
       );

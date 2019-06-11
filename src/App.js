@@ -5,13 +5,11 @@ import Control from './components/Control';
 import TaskList from './components/TaskList';
 
 
-
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            tasks: [],
             isDisplayForm: false,
             taskEditing: null,
             filter: {
@@ -21,16 +19,6 @@ class App extends Component {
             keyWord: '',
             sortBy: 'name',
             sortValue: 1
-        }
-    }
-
-    componentWillMount() {
-        if (localStorage && localStorage.getItem('keyTasks')) {
-            var tasksTmp = JSON.parse(localStorage.getItem('keyTasks'));
-            console.log(tasksTmp);
-            this.setState({
-                tasks: tasksTmp
-            })
         }
     }
 
@@ -58,13 +46,7 @@ class App extends Component {
         localStorage.setItem('keyTasks', JSON.stringify(arrtasks));
     }
 
-    s4() {
-        return Math.random((1 + Math.random() * 0x10000)).toString(16).substring(1);
-    }
 
-    generateId() {
-        return this.s4() + this.s4() + '-' + this.s4() + this.s4() + '-' + this.s4() + this.s4();
-    }
 
     onToggleForm = () => {
         if (this.state.isDisplayForm === true && this.state.taskEditing !== null) {
@@ -188,42 +170,42 @@ class App extends Component {
     }
 
     render() {
-        var { tasks, isDisplayForm, filter, keyWord, sortBy, sortValue } = this.state; //var tasks = this.state.tasks
+        var { isDisplayForm, filter, keyWord, sortBy, sortValue } = this.state; //var tasks = this.state.tasks
         if (filter !== null) {
             if (filter.name !== null) {
-                tasks = tasks.filter((task) => {
-                    return task.name.toLowerCase().indexOf(filter.name) !== -1;
-                });
+                // tasks = tasks.filter((task) => {
+                //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
+                // });
             }
 
-            tasks = tasks.filter((task) => {
-                if (filter.status === -1) {
-                    console.log('choose all')
-                    return task
-                } else {
-                    return task.status === (filter.status === 1 ? true : false)
-                }
-            });
+            // tasks = tasks.filter((task) => {
+            //     if (filter.status === -1) {
+            //         console.log('choose all')
+            //         return task
+            //     } else {
+            //         return task.status === (filter.status === 1 ? true : false)
+            //     }
+            // });
 
         }
         if (keyWord !== '') {
-            tasks = tasks.filter((task) => {
-                return task.name.toLowerCase().indexOf(keyWord) !== -1;
-            });
+            // tasks = tasks.filter((task) => {
+            //     return task.name.toLowerCase().indexOf(keyWord) !== -1;
+            // });
         }
 
         if (sortBy === 'name') {
-            tasks.sort((a, b) => {
-                if (a.name > b.name) return sortValue;
-                else if (a.name < b.name) return -sortValue;
-                else return 0
-            });
+            // tasks.sort((a, b) => {
+            //     if (a.name > b.name) return sortValue;
+            //     else if (a.name < b.name) return -sortValue;
+            //     else return 0
+            // });
         } else {
-            tasks.sort((a, b) => {
-                if (a.status > b.status) return sortValue;
-                else if (a.status < b.status) return -sortValue;
-                else return 0
-            });
+            // tasks.sort((a, b) => {
+            //     if (a.status > b.status) return sortValue;
+            //     else if (a.status < b.status) return -sortValue;
+            //     else return 0
+            // });
         }
 
 
@@ -242,6 +224,7 @@ class App extends Component {
                 <div className="text-center">
                     <h1>TASK MANAGER</h1>
                 </div>
+
                 <div className="row">
                     {/* form create/edit work */}
                     {elemDisplayForm}
@@ -272,7 +255,7 @@ class App extends Component {
                         {/* list */}
                         <div className="row mt-15">
                             <TaskList
-                                tasks={tasks}
+
                                 onUpdateStatus={this.onUpdateStatus}
                                 onDelete={this.onDelete}
                                 onUpdate={this.onUpdate}
@@ -281,7 +264,7 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }
