@@ -4,13 +4,23 @@ import TaskFrom from './components/TaskForm';
 import Control from './components/Control';
 import TaskList from './components/TaskList';
 
+
+
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             tasks: [],
-            isDisplayForm: false
+            isDisplayForm: false,
+            taskEditing: null,
+            filter: {
+                name: '',
+                status: -1
+            },
+            keyWord: '',
+            sortBy: 'name',
+            sortValue: 1
         }
     }
 
@@ -57,9 +67,17 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        this.setState({
-            isDisplayForm: !this.state.isDisplayForm
-        });
+        if (this.state.isDisplayForm === true && this.state.taskEditing !== null) {
+            this.setState({
+                isDisplayForm: true,
+                taskEditing: null
+            });
+        } else {
+            this.setState({
+                isDisplayForm: !this.state.isDisplayForm,
+                taskEditing: null
+            });
+        }
     }
 
     onCLoseForm = () => {
@@ -68,31 +86,161 @@ class App extends Component {
         });
     }
 
+    onShowForm = () => {
+        this.setState({
+            isDisplayForm: true
+        });
+    }
+
     onSubmit = (data) => {
         var { tasks } = this.state;
-        data.id = this.generateId();
-        tasks.push(data);
+        if (data.id === '') {
+            data.id = this.generateId();
+            tasks.push(data);
+        } else {
+            var index = this.findIndex(data.id);
+            tasks[index] = data;
+        }
+
         this.setState({
-            tasks: tasks
+            tasks: tasks,
+            taskEditing: null
         });
         localStorage.setItem('keyTasks', JSON.stringify(tasks));
         console.log(tasks);
     }
 
+    findIndex = (id) => {
+        var { tasks } = this.state;
+        var result = -1;
+        tasks.forEach((task, index) => {
+            if (task.id === id) {
+                result = index
+            }
+        });
+        return result;
+    }
+
+    onUpdateStatus = (id) => {
+        var { tasks } = this.state;
+        var index = this.findIndex(id);
+        console.log(index);
+        if (index !== -1) {
+            tasks[index].status = !tasks[index].status;
+            this.setState({
+                tasks: tasks
+            });
+            localStorage.setItem('keyTasks', JSON.stringify(tasks));
+        }
+    }
+
+    onDelete = (id) => {
+        var { tasks } = this.state;
+        var index = this.findIndex(id);
+        console.log(index);
+        if (index !== -1) {
+            tasks.splice(index, 1)
+            this.setState({
+                tasks: tasks
+            });
+            localStorage.setItem('keyTasks', JSON.stringify(tasks));
+            this.onCLoseForm();
+        }
+    }
+
+    onUpdate = (id) => {
+        var { tasks } = this.state;
+        var index = this.findIndex(id);
+        var taskEdit = tasks[index];
+        this.setState({
+            taskEditing: taskEdit
+        });
+        console.log(this.state.taskEditing);
+        this.onShowForm();
+    }
+
+    onAlert = () => {
+        alert("Buttet Pressed")
+    }
+
+    onFilter = (filterName, filterStatus) => {
+        filterStatus = parseInt(filterStatus, 10);
+        this.setState({
+            filter: {
+                name: filterName.toLowerCase(),
+                status: filterStatus
+            }
+        });
+    }
+
+    onSearch = (keyWord) => {
+        this.setState({
+            keyWord: keyWord
+        });
+    }
+
+    onSort = (sortBy, sortValue) => {
+        this.setState({
+            sortBy: sortBy,
+            sortValue: sortValue
+        });
+        console.log(sortBy, sortValue);
+    }
+
     render() {
-        var { tasks, isDisplayForm } = this.state; //var tasks = this.state.tasks
+        var { tasks, isDisplayForm, filter, keyWord, sortBy, sortValue } = this.state; //var tasks = this.state.tasks
+        if (filter !== null) {
+            if (filter.name !== null) {
+                tasks = tasks.filter((task) => {
+                    return task.name.toLowerCase().indexOf(filter.name) !== -1;
+                });
+            }
+
+            tasks = tasks.filter((task) => {
+                if (filter.status === -1) {
+                    console.log('choose all')
+                    return task
+                } else {
+                    return task.status === (filter.status === 1 ? true : false)
+                }
+            });
+
+        }
+        if (keyWord !== '') {
+            tasks = tasks.filter((task) => {
+                return task.name.toLowerCase().indexOf(keyWord) !== -1;
+            });
+        }
+
+        if (sortBy === 'name') {
+            tasks.sort((a, b) => {
+                if (a.name > b.name) return sortValue;
+                else if (a.name < b.name) return -sortValue;
+                else return 0
+            });
+        } else {
+            tasks.sort((a, b) => {
+                if (a.status > b.status) return sortValue;
+                else if (a.status < b.status) return -sortValue;
+                else return 0
+            });
+        }
+
+
+
         var elemDisplayForm = isDisplayForm ?
             <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                 < TaskFrom
                     onCLoseForm2={this.onCLoseForm}
                     onSubmitParent={this.onSubmit}
+                    task={this.state.taskEditing}
                 />
             </div > : ""
 
         return (
             <div className="container" >
                 <div className="text-center">
-                    <h1>WORK MANAGER</h1>
+                    <h1>TASK MANAGER</h1>
                 </div>
                 <div className="row">
                     {/* form create/edit work */}
@@ -108,17 +256,28 @@ class App extends Component {
                         <button
                             type="button"
                             className="btn btn-danger ml-5"
-                            onClick={this.onGenerateData}
+                            onClick={this.onAlert}
                         >
                             Genarate Data
                         </button>
                         {/* sort, search */}
                         <div className="row mt-15">
-                            <Control />
+                            <Control
+                                onSearch={this.onSearch}
+                                onSort={this.onSort}
+                                sortBy={sortBy}
+                                sortValue={sortValue}
+                            />
                         </div>
                         {/* list */}
                         <div className="row mt-15">
-                            <TaskList tasks={tasks} />
+                            <TaskList
+                                tasks={tasks}
+                                onUpdateStatus={this.onUpdateStatus}
+                                onDelete={this.onDelete}
+                                onUpdate={this.onUpdate}
+                                onFilter={this.onFilter}
+                            />
                         </div>
                     </div>
                 </div>

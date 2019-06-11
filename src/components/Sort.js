@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
 class Sort extends Component {
+
+   //  
+
+   onClick = (sortBy, sortValue) => {
+      this.props.onSort(sortBy, sortValue);
+   }
+
    render() {
       return (
          <div>
@@ -14,23 +21,23 @@ class Sort extends Component {
                   Sort<span className="caret ml-5" />
                </button>
                <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <li>
+                  <li onClick={() => this.onClick('name', 1)}>
                      <a role="button">
                         <span className="fa fa-sort-alpha-down"></span>Name A-Z
                                 </a>
                   </li>
-                  <li>
+                  <li onClick={() => this.onClick('name', -1)}>
                      <a role="button" >
                         <span className="fa fa-sort-alpha-up"></span>Name Z-A
                                 </a>
                   </li>
                   <li className="divider"></li>
-                  <li>
+                  <li onClick={() => this.onClick('status', 1)}>
                      <a role="button" >
                         Status is Active
                                 </a>
                   </li>
-                  <li>
+                  <li onClick={() => this.onClick('status', -1)}>
                      <a role="button" >
                         <span>Status is InActive</span>
                      </a>
