@@ -7,8 +7,7 @@ import { Provider } from 'react-redux';
 
 //store
 import { createStore } from 'redux';
-import myReducer from './reducers';
-
+import myReducer from './reducers/index';
 
 const store = createStore(myReducer);
 

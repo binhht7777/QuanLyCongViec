@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TaskItem from './TaskItem';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class TaskList extends Component {
 
