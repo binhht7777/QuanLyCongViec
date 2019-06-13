@@ -21,11 +21,13 @@ var myReducer = (state = initialState, action) => {
          var newTask = {
             id: generateId(),
             name: action.task.name,
-            status: action.task.status === 'true' ? true : false
+            status: action.task.status === true ? true : false
          }
+         console.log(action);
          state.push(newTask);
          localStorage.setItem('keyTasks', JSON.stringify(state));
          return [...state];
+
       default: return state;
    }
 }

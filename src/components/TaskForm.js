@@ -43,7 +43,7 @@ class TaskForm extends Component {
     }
 
     onCLoseForm3 = () => {
-        this.props.onCLoseForm2();
+        this.props.onCLoseForm();
     }
 
 
@@ -62,7 +62,7 @@ class TaskForm extends Component {
     onSubmit = (event) => {
         event.preventDefault();
         console.log(this.state);
-        this.props.onAddTask(this.state.task);
+        this.props.onAddTask(this.state);
         this.onCLear();
         this.onCLoseForm3();
     }
@@ -139,7 +139,11 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onAddTask: (task) => {
             dispatch(actions.addTask(task));
-        }
+        },
+
+        onCLoseForm: () => {
+            dispatch(actions.closeForm());
+        },
     }
 };
 
