@@ -49,17 +49,6 @@ class App extends Component {
 
 
     onToggleForm = () => {
-        // if (this.state.isDisplayForm === true && this.state.taskEditing !== null) {
-        //     this.setState({
-        //         isDisplayForm: true,
-        //         taskEditing: null
-        //     });
-        // } else {
-        //     this.setState({
-        //         isDisplayForm: !this.state.isDisplayForm,
-        //         taskEditing: null
-        //     });
-        // }
         this.props.onToggleForm();
     }
 
@@ -69,29 +58,7 @@ class App extends Component {
         });
     }
 
-    findIndex = (id) => {
-        var { tasks } = this.state;
-        var result = -1;
-        tasks.forEach((task, index) => {
-            if (task.id === id) {
-                result = index
-            }
-        });
-        return result;
-    }
 
-    onUpdateStatus = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        console.log(index);
-        if (index !== -1) {
-            tasks[index].status = !tasks[index].status;
-            this.setState({
-                tasks: tasks
-            });
-            localStorage.setItem('keyTasks', JSON.stringify(tasks));
-        }
-    }
 
     onDelete = (id) => {
         var { tasks } = this.state;
@@ -233,7 +200,6 @@ class App extends Component {
                         {/* list */}
                         <div className="row mt-15">
                             <TaskList
-                                onUpdateStatus={this.onUpdateStatus}
                                 onDelete={this.onDelete}
                                 onUpdate={this.onUpdate}
                                 onFilter={this.onFilter}
