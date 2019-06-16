@@ -74,8 +74,6 @@ class TaskForm extends Component {
         });
     }
 
-
-
     render() {
         var { id } = this.state;
         if (!this.props.isDisplayForm) return null;
