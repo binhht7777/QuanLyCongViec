@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/index';
 
+
 class TaskForm extends Component {
 
     constructor(props) {
@@ -15,22 +16,22 @@ class TaskForm extends Component {
 
     // chi chay khi load form lan dau tien
     componentWillMount() {
-        if (this.props.task !== null) {
+        if (this.props.taskEditing !== null) {
             this.setState({
-                id: this.props.task.id,
-                name: this.props.task.name,
-                status: this.props.task.status
+                id: this.props.taskEditing.id,
+                name: this.props.taskEditing.name,
+                status: this.props.taskEditing.status
             });
         }
     }
 
     // chay khi truoc do co su kien khac dang thuc hien vi du Create
     componentWillReceiveProps(nextProps) {
-        if (nextProps !== null && nextProps.task !== null) {
+        if (nextProps !== null && nextProps.taskEditing !== null) {
             this.setState({
-                id: nextProps.task.id,
-                name: nextProps.task.name,
-                status: nextProps.task.status
+                id: nextProps.taskEditing.id,
+                name: nextProps.taskEditing.name,
+                status: nextProps.taskEditing.status
             });
         }
         else if (nextProps && nextProps.task === null) {
@@ -61,8 +62,7 @@ class TaskForm extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
-        this.props.onAddTask(this.state);
+        this.props.onSaveTask(this.state);
         this.onCLear();
         this.onCLoseForm3();
     }
@@ -78,6 +78,7 @@ class TaskForm extends Component {
 
     render() {
         var { id } = this.state;
+        if (!this.props.isDisplayForm) return null;
         return (
             <div>
                 <div className="panel panel-warning">
@@ -131,19 +132,21 @@ class TaskForm extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        isDisplayForm: state.isDisplayForm,
+        taskEditing: state.taskEditing
     }
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask: (task) => {
-            dispatch(actions.addTask(task));
+        onSaveTask: (task) => {
+            dispatch(actions.saveTask(task));
         },
 
         onCLoseForm: () => {
             dispatch(actions.closeForm());
         },
+
     }
 };
 
