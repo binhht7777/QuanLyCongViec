@@ -11,6 +11,11 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            filter: {
+                name: '',
+                status: -1
+            },
+            keyWord: '',
             sortBy: 'name',
             sortValue: 1
         }
@@ -62,13 +67,95 @@ class App extends Component {
         });
     }
 
+    onUpdate = (id) => {
+        var { tasks } = this.state;
+        var index = this.findIndex(id);
+        var taskEdit = tasks[index];
+        this.setState({
+            taskEditing: taskEdit
+        });
+        console.log(this.state.taskEditing);
+        this.onShowForm();
+    }
+
     onAlert = () => {
         alert("Buttet Pressed")
     }
 
+    onFilter = (filterName, filterStatus) => {
+        filterStatus = parseInt(filterStatus, 10);
+        this.setState({
+            filter: {
+                name: filterName.toLowerCase(),
+                status: filterStatus
+            }
+        });
+    }
+
+    onSearch = (keyWord) => {
+        this.setState({
+            keyWord: keyWord
+        });
+    }
+
+    onSort = (sortBy, sortValue) => {
+        this.setState({
+            sortBy: sortBy,
+            sortValue: sortValue
+        });
+        console.log(sortBy, sortValue);
+    }
+
     render() {
+        var { filter, keyWord, sortBy, sortValue } = this.state; //var tasks = this.state.tasks
         var { isDisplayForm } = this.props;
+        if (filter !== null) {
+            // if (filter.name !== null) {
+            //     // tasks = tasks.filter((task) => {
+            //     //     return task.name.toLowerCase().indexOf(filter.name) !== -1;
+            //     // });
+            // }
+
+            // tasks = tasks.filter((task) => {
+            //     if (filter.status === -1) {
+            //         console.log('choose all')
+            //         return task
+            //     } else {
+            //         return task.status === (filter.status === 1 ? true : false)
+            //     }
+            // });
+
+        }
+        if (keyWord !== '') {
+            // tasks = tasks.filter((task) => {
+            //     return task.name.toLowerCase().indexOf(keyWord) !== -1;
+            // });
+        }
+
+        if (sortBy === 'name') {
+            // tasks.sort((a, b) => {
+            //     if (a.name > b.name) return sortValue;
+            //     else if (a.name < b.name) return -sortValue;
+            //     else return 0
+            // });
+        } else {
+            // tasks.sort((a, b) => {
+            //     if (a.status > b.status) return sortValue;
+            //     else if (a.status < b.status) return -sortValue;
+            //     else return 0
+            // });
+        }
+
+
+
+        // var elemDisplayForm = isDisplayForm ?
+        //     < TaskFrom
+        //         onSubmitParent={this.onSubmit}
+        //         task={this.state.taskEditing}
+        //     /> : ""
+
         return (
+
             <div className="container" >
                 <div className="text-center">
                     <h1>TASK MANAGER</h1>
@@ -96,11 +183,19 @@ class App extends Component {
                         </button>
                         {/* sort, search */}
                         <div className="row mt-15">
-                            <Control />
+                            <Control
+                                onSearch={this.onSearch}
+                                onSort={this.onSort}
+                                sortBy={sortBy}
+                                sortValue={sortValue}
+                            />
                         </div>
                         {/* list */}
                         <div className="row mt-15">
-                            <TaskList />
+                            <TaskList
+                                onUpdate={this.onUpdate}
+                                onFilter={this.onFilter}
+                            />
                         </div>
                     </div>
                 </div>
