@@ -53,6 +53,13 @@ class App extends Component {
             sortValue: 1
         }
     }
+	constructor4444(props) { //binhpt them su kien moieee44444
+        super(props44);
+        {
+			hi lsdljsfjlkfkldjsflks
+			fasfdas
+		}
+    }
     
 
     componentWillMount() {
