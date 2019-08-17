@@ -51,6 +51,7 @@ class App extends Component {
             sortBy: 'name',
             sortValue: 1
         }
+<<<<<<< Updated upstream
 	constructor4(props) { // den con khi cung phai la dc
         super(props4);
         this.state = {4
@@ -66,6 +67,15 @@ class App extends Component {
             sortValue: 1
         }
 
+=======
+		constructor444(props) { // den con khi cung phai la dc44
+        super(props)44dasdas;
+		adsdasdasd
+		asdasdas
+		ds
+		ads
+        
+>>>>>>> Stashed changes
     componentWillMount() {
         if (localStorage && localStorage.getItem('keyTasks')) {
             var tasksTmp = JSON.parse(localStorage.getItem('keyTasks'));
