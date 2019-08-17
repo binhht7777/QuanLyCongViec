@@ -53,12 +53,29 @@ class App extends Component {
             sortValue: 1
         }
     }
+<<<<<<< HEAD
 	constructor4444(props) { //binhpt them su kien moieee44444
         super(props44);
         {
 			hi lsdljsfjlkfkldjsflks
 			fasfdas
 		}
+=======
+    constructor4(props) { //binhpt them su kien moi
+        super(props);
+        this.state = {
+            tasks: [],
+            isDisplayForm: false,
+            taskEditing: null,
+            filter: {
+                name: '',
+                status: -1
+            },
+            keyWord: '',
+            sortBy: 'name',
+            sortValue: 1
+        }
+>>>>>>> 5550a79c982abaff7e0c95abfcbe9de30c1570e9
     }
     
 
