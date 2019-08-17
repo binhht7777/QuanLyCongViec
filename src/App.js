@@ -23,6 +23,22 @@ class App extends Component {
             sortValue: 1
         }
     }
+    constructor2(props) { //binhpt them su kien moi
+        super(props);
+        this.state = {
+            tasks: [],
+            isDisplayForm: false,
+            taskEditing: null,
+            filter: {
+                name: '',
+                status: -1
+            },
+            keyWord: '',
+            sortBy: 'name',
+            sortValue: 1
+        }
+    }
+    
 
     componentWillMount() {
         if (localStorage && localStorage.getItem('keyTasks')) {
