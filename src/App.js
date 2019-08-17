@@ -23,6 +23,13 @@ class App extends Component {
             sortValue: 1
         }
     } 
+	constructor2(props2) {// Doan code sua bi Conflics
+        super(props);
+        this.state = {
+			// Den con khi cung phai biet GIT
+			// Git khong co gi phai dang ngai
+        }
+    }
 
     componentWillMount() {
         if (localStorage && localStorage.getItem('keyTasks')) {
