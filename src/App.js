@@ -38,7 +38,7 @@ class App extends Component {
             sortValue: 1
         }
     }
-	constructor2(props2) {// Doan code sua bi Conflics
+	constructor3(props3) {// Doan code them moi Conflics
         super(props);
         this.state = {
 			// Den con khi cung phai biet GIT
