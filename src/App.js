@@ -22,8 +22,8 @@ class App extends Component {
             sortBy: 'name',
             sortValue: 1
         }
-    }
-    constructor2(props) { //binhpt them su kien moi
+    } 
+    constructor2(props) { // den con khi cung phai la dc
         super(props);
         this.state = {
             tasks: [],
@@ -37,21 +37,7 @@ class App extends Component {
             sortBy: 'name',
             sortValue: 1
         }
-    }
-    constructor3(props) { //binhpt them su kien moi
-        super(props);
-        this.state = {
-            tasks: [],
-            isDisplayForm: false,
-            taskEditing: null,
-            filter: {
-                name: '',
-                status: -1
-            },
-            keyWord: '',
-            sortBy: 'name',
-            sortValue: 1
-        }
+<<<<<<< HEAD
     }
 <<<<<<< HEAD
 	constructor4444(props) { //binhpt them su kien moieee44444
@@ -78,6 +64,9 @@ class App extends Component {
 >>>>>>> 5550a79c982abaff7e0c95abfcbe9de30c1570e9
     }
     
+=======
+    }  
+>>>>>>> fa84d3d86f5858332e8623e7a600fc3f500f4a2c
 
     componentWillMount() {
         if (localStorage && localStorage.getItem('keyTasks')) {
